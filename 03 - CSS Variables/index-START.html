@@ -5,7 +5,7 @@
   <title>Scoped CSS Variables and JS</title>
 </head>
 <body>
-  <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
+  <h2 class='hover-color'>Update CSS Variables with <span class='hl'>JS</span></h2>
 
   <div class="controls">
     <label for="spacing">Spacing:</label>
@@ -21,7 +21,28 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+    /* Define the CSS Variables on the root elemet which is the window*/
+    :root{
+      --base: rgb(0, 255, 119);
+      --spacing: 10px;
+      --blue: 10px;
+      
+    }
 
+    img{
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+
+    }
+
+    .hover-color{
+      color: var(--base);
+    }
+
+    .hl{
+      color: var(--base);
+    }
     /*
       misc styles, nothing to do with CSS variables
     */
@@ -45,6 +66,39 @@
   </style>
 
   <script>
+    //we can select all our inputs on the page by selecting the class .controls and 
+    //then selecting all input tags
+    const inputs = document.querySelectorAll('.controls input')
+    //Its important to know that this returns a Node List NOT an array. A node list looks 
+    //like an array but does not have all the properties associated with an Array. 
+    // the Array.from() method can be used to convert a Node list to an array if necessary
+    //console.log(inputs)
+
+    function handleUpdate(){
+      const suffix = this.dataset.sizing || '';
+      //console.log(this.name); 
+      document.documentElement.style.setProperty(`--${this.name}`,this.value + suffix)
+    }
+
+    function Hovertext(){
+     // console.log(this)
+      this.style.setProperty(`color`,colorCtrl.value)
+      console.log(this)
+    }
+
+    const colorCtrl = document.getElementById('base')
+    const hoverColor = document.querySelector('.hover-color')
+
+    inputs.forEach(input => input.addEventListener('change',handleUpdate))
+    inputs.forEach(input => input.addEventListener('mouseover',handleUpdate))
+
+    //inputs.forEach(input => console.log(input))
+    hoverColor.addEventListener('mouseout',(e)=>e.target.style.setProperty('color','white'))
+    hoverColor.addEventListener('mouseover', Hovertext)
+   
+    
+    // blurCtrl.addEventListener('change',(e)=>console.log(e))
+    // //console.log(blurCtrl) 
   </script>
 
 </body>

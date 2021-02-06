@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
+    <title>Fun With CSS</title>
+</head>
+<body>
+
+    <div class="outer">
+        <div class="inner inner1 panel1">Heading</div>
+        <div class="inner inner2 panel2"></div>
+        <div class="inner inner3 panel3"></div>
+        <!-- <div></div> -->
+    </div>
+    <div class="menu">
+        
+    </div>
+    
+    <style>
+        html{ 
+            background-size: cover;
+            background-repeat: no-repeat;
+            /* width: 100%; */
+            background: url(https://images.unsplash.com/32/Mc8kW4x9Q3aRR3RkP5Im_IMG_4417.jpg?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80);
+            font-family: 'helvetica neue';
+            font-size: 20px;
+            font-weight: 500;
+            color: rgb(215, 133, 34);
+        }
+
+        body{
+            margin: 0;
+            box-sizing: border-box;
+            display: flex;
+            
+
+        }
+
+        .outer{ 
+            display: flex;
+            overflow: hidden;
+            /* border: 1px solid red; */
+            padding: 30px 30px ;
+            flex: 1;
+        }
+
+        .inner{
+            width: 10vh;
+            height: 30vh;
+            border: 2px solid white;
+            padding: 20px 20px ;
+            margin: 30px;
+            
+            flex: 1;
+        }
+
+        .menu{ 
+            background-image: url(https://www.flaticon.com/svg/vstatic/svg/566/566020.svg?token=exp=1612233450~hmac=88476468e4d5caaf4e3e3d7deed2571c);
+            bottom: 10vh;
+            width: 10vh;
+            height: 10vh;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            /* margin: 0% auto; */
+            border: 1px solid red;
+        }
+
+        .panel1 { 
+            background-image:url(https://source.unsplash.com/gYl-UtwNg_I/1500x1500); 
+            background-size: cover;
+        }
+        .panel2 { background-image:url(https://source.unsplash.com/rFKUFzjPYiQ/1500x1500); 
+            background-size: cover;}
+        .panel3 { background-image:url(https://source.unsplash.com/3MNzGlQM7qs/1500x1500); 
+            background-size: cover;}
+        
+        .highlight{
+            transform: translateY(10px);
+            transform: rotate(10deg);
+            zoom: 120%;
+            transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+            transition-duration: 0.7s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 10px 5px 5px rgb(232, 232, 226);
+
+        }
+        .clickedPic{ 
+            transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+            transition-duration: 0.7s;
+            flex: 20;
+            height: 60vh;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+    </style>
+
+    <script>
+        const menu = document.querySelector('.menu')
+        const inners = document.querySelectorAll('.outer div')
+        console.log(inners)
+
+        
+
+
+
+        inners.forEach(inner => {
+            //console.log(inner)
+            inner.addEventListener('mouseenter',highlight)
+            inner.addEventListener('mouseleave',unHighlight)
+            inner.addEventListener('click',clickedItem)
+        } )
+
+        //
+        function removeClass(){
+            inners.forEach(inner => inner.classList.remove('clickedPic'))
+        }
+
+        function clickedItem(){
+            //inners.forEach(inner => inner.classList.remove('clickedPic'))
+            this.classList.toggle('clickedPic')
+            this.classList.remove('highlight')
+           // this.innerHTML = this.style.backgroundImage.url.value
+            console.log(this.classList)
+        }
+
+        menu.addEventListener('click', removeClass)
+
+        //mouseOver highlight 
+        function highlight(){
+            if(this.style.flexGrow <2 ){
+            this.classList.add('highlight')
+            this.innerHTML = "Click Me!"
+            }
+            else{
+                this.classList.remove('highlight')
+            }
+           
+        }
+        //remove Mouse Over highlight
+        function unHighlight(){
+            this.classList.remove('highlight')
+            this.innerHTML = ""
+        }
+
+
+    </script>
+
+</body>
+</html>
